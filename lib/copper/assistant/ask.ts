@@ -144,7 +144,8 @@ export async function askCopper(
       // A model that ends without a word still gets a polite answer.
       if (!progress.reply.trim()) progress.reply = APOLOGY;
       done(snapshot({ ...progress, status: "done" }));
-    } catch {
+    } catch (error) {
+      console.error("[ask-copper]", messageOf(error));
       done(
         snapshot({
           ...progress,

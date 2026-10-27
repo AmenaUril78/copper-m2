@@ -22,12 +22,18 @@ Mark each answer ✅ (correct) or ❌ (wrong). Under "Tools used", write which t
 
 | Question | Tools on: right? | Tools used | Cost | Time | Tools off: right? | Cost | Time |
 |---|---|---|---|---|---|---|---|
-| Q1 | | | | | | | |
-| Q2 | | | | | | | |
-| Q3 | | | | | | | |
-| Q4 | | | | | | | |
-| Q5 | | | | | | | |
-| **Total** | **_ / 5** | | | | **_ / 5** | | |
+| Q1 | ✅ | `calculate_cost` | $0.0008 | 1.8 s | ❌ | $0.0057 | 9.3 s |
+| Q2 | ✅ | `get_prices`, `calculate_cost` (twice) | $0.0015 | 2.8 s | ❌ | $0.0034 | 5.9 s |
+| Q3 | ❌ | `get_products`, `check_availability` | $0.0009 | 3.9 s | ❌ | $0.0066 | 12.5 s |
+| Q4 | ✅ | `get_products` | $0.0008 | 1.7 s | ❌ | $0.0042 | 14.8 s |
+| Q5 | ✅ | none | $0.0004 | 1.0 s | ❌ | $0.0024 | 5.8 s |
+| **Total** | **4 / 5** | | | | **0 / 5** | | |
+
+Notes on these runs (model: `google/gemini-3-flash`, each question asked in a fresh page load):
+
+- Q3 with tools on: the card was right (Night Sky, back-ordered until Nov 14, 2026), but the reply began "Yes, Copper Notes in Night Sky is on backorder", which answers "is it in stock?" the wrong way round. I marked it ❌.
+- Q4 and Q5 with tools on each failed once with Copper's apology message (the daily free-tier limit was close), so the rows above come from asking them again.
+- Tools off: all five answers were made up. Q1 gave £516 or $98 for unrelated companies, Q2 said yearly is cheaper but by $11.52, Q3 asked which "Night Sky" product was meant, Q4 said "Patina" exists in another brand's notebooks, and Q5 invented a 30-day return policy.
 
 ## 2. Reading the steps
 
@@ -35,11 +41,11 @@ Pick one answer where Copper used a tool. Copy out:
 
 - **What Copper was thinking** (the thinking station, in its own words):
 
->
+> No thinking station appeared in any of my tools-on runs. Gemini 3 Flash "thinks out loud less often" (see `lib/ai/models.ts`), and Gemini 2.5 Flash, which always writes a summary, was refused for my new API key. The thinking station did appear in the tools-off chat (section 4).
 
 - **What Copper sent** to the tool, and **what came back**:
 
->
+> Q1, `calculate_cost`. Sent: Products: Copper Home; Plan: Copper Plus; Billing: annual; Years: 2. Came back: Copper Home $149, Copper Plus, annual, 2 years $158, Total $307.
 
 Did the model pick the right inputs? How would you know if it hadn't? (2–4 sentences)
 
@@ -59,7 +65,7 @@ What did Copper say this time? Did you change any code or instructions? (2–3 s
 
 Copper still thinks out loud in the tools-off chat. Find a question where it got the price wrong and copy out its thinking:
 
->
+> Q1, tools off: "Clarifying Copper's Identity. I've hit a roadblock - "Copper Home" and "Copper Plus" aren't standard Copper CRM offerings. My focus has shifted. It appears "Copper" might be related to smart home security (water leak detection) or utility services. I am attempting to clarify the specific "Copper" product being referenced, so I can collect the right pricing details."
 
 What happened when Copper had no tools? Which answers changed, and why can't a model know prices or today's stock without them? (3–5 sentences)
 
