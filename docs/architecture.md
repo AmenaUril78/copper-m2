@@ -81,6 +81,31 @@ business. Each line is rounded to cents before summing. Stock is never cached.
 **Risks and open questions:** the tools only read, so they can't change
 anything. A blank `color` is treated as "every color".
 
+### Ask Copper: the action and the panel
+
+| Piece | Where | What it does |
+|---|---|---|
+| Server Action | `lib/copper/assistant/ask.ts` | `askCopper({ messages, useTools })` validates the request, returns `{ progress }` at once and reads the model stream in the background |
+| Panel | `components/copper/ask-copper.tsx` | Floating launcher and Sheet; two separate chats (tools on / off); starter questions; shows `<SetupRequired />` without a key |
+| Stations | `components/copper/ask-copper-stations.tsx` | Draws one answer: tools on offer, thinking, tool calls, "what's happening now" |
+| Tool card | `components/copper/ask-copper-tool-card.tsx` | One tool call, always open: what Copper sent, what came back |
+| Page / header | `app/page.tsx`, `components/copper/site-header.tsx` | Mounts the panel (with `isAiConfigured()`) and links to `#ask` |
+| AI calls | `lib/ai/call.ts` (module 2, feature `ask-copper`) | `callStream` with `THOUGHT_SUMMARIES`; tools on adds instructions, the four tools and `stepCountIs(5)` |
+
+**Data flow:** shopper question → panel (that chat's finished turns plus the
+question) → `askCopper` → `callStream` → model → tool calls run in
+`tools.ts` → each stream part updates a `Progress` → fresh copies go out through
+a live value → `readLive()` in the panel redraws.
+
+**Decisions and trade-offs:** a live value (not an API route) keeps the site to
+one page. Each update is a full copy, so a missed update loses nothing. The
+request is checked with zod (shape and size) because a Server Action is a public
+POST endpoint. With tools off the model gets no instructions at all, so the
+comparison shows what it does when nothing tells it to check.
+
+**Risks and open questions:** cost per question is logged to `ai_calls`. The
+default model is set in `lib/ai/models.ts` and can be changed with `AI_MODEL`.
+
 ## Adding a module
 
 When a module changes how the app fits together, add a section here:
