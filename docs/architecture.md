@@ -59,6 +59,28 @@ Don't mix these up:
 - **No authentication or row-level security yet.** They arrive in a later
   module.
 
+## Module 2: Ask Copper tools
+
+**Summary:** the four tools the shopping chatbot can call, so prices, totals
+and stock come from code and data instead of the model's memory.
+
+| Piece | Where | What it does |
+|---|---|---|
+| Tools | `lib/copper/assistant/tools.ts` | `get_products`, `get_prices`, `calculate_cost`, `check_availability`, exported as `copperTools` |
+| Data | `lib/copper/catalog.ts`, `lib/copper/inventory.ts` | Prices and colors from the catalog; stock read fresh by `readInventory()` |
+
+**Data flow:** model picks a tool and writes its input → zod schema validates
+it → ordinary TypeScript reads the catalog or stock list → result goes back to
+the model.
+
+**Decisions and trade-offs:** input schemas are strict (unknown fields,
+6 years or 1.5 years are rejected) so the app, not the model, protects the
+business. Each line is rounded to cents before summing. Stock is never cached.
+`not_a_color` is decided before stock is read, so it holds when stock is down.
+
+**Risks and open questions:** the tools only read, so they can't change
+anything. A blank `color` is treated as "every color".
+
 ## Adding a module
 
 When a module changes how the app fits together, add a section here:
