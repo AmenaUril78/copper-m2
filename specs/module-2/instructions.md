@@ -137,16 +137,18 @@ touching code.
 Paste this:
 
 ```
-In this repo, take the part 2 files from the course remote without merging the
-branch, so nothing I wrote in part 1 is touched. First commit anything
-uncommitted, because the checkout below overwrites the files it names. Then:
+In this repo, pull the part 2 files from the course remote. First commit
+anything uncommitted, then:
 git fetch course
-git checkout course/module-2-part-1 -- supabase lib/supabase .mcp.json specs/module-2/instructions.md specs/module-2/spec.md
-npm install @supabase/supabase-js@2.117.3
-Install the package rather than taking package.json from the branch, so any
-shadcn or AI Elements components I added in part 1 keep their dependencies.
-Then show me what changed.
+git pull --no-rebase course module-2-part-1
+If the merge stops on specs/module-2/report.md, that file was removed from the
+course branch on purpose: run git rm specs/module-2/report.md and finish the
+merge. Then run npm install and show me what changed.
 ```
+
+That brings in the migration, the seed, the Supabase client and the MCP config,
+and keeps everything you wrote in part 1 — including any shadcn or AI Elements
+components you added.
 
 While it runs, go to [supabase.com](https://supabase.com) and sign up with
 your personal email, not your ASU one. Stop there — you don't need to create
