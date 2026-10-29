@@ -137,9 +137,8 @@ touching code.
 Paste this:
 
 ```
-In this repo, pull the part 2 files from the course remote. First commit
-anything uncommitted, then:
-git fetch course
+In this repo, pull the part 2 files from the course remote (the class repo;
+my own repo is origin). First commit anything uncommitted, then:
 git pull --no-rebase course module-2-part-1
 If the merge stops on specs/module-2/report.md, that file was removed from the
 course branch on purpose: run git rm specs/module-2/report.md and finish the
