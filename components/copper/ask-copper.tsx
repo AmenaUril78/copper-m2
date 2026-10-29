@@ -142,7 +142,7 @@ export function AskCopper({ aiConfigured }: { aiConfigured: boolean }) {
           showCloseButton={false}
           className="w-full gap-0 p-0 data-[side=right]:w-full data-[side=right]:sm:max-w-md"
         >
-          <header className="bg-chart-5 text-primary-foreground">
+          <header className="bg-chart-5 text-secondary">
             <div className="flex items-center gap-3 p-4">
               <span className="bg-primary flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full">
                 <Image
@@ -153,10 +153,8 @@ export function AskCopper({ aiConfigured }: { aiConfigured: boolean }) {
                 />
               </span>
               <div className="min-w-0 flex-1">
-                <SheetTitle className="text-primary-foreground">
-                  Ask Copper
-                </SheetTitle>
-                <SheetDescription className="text-primary-foreground/70">
+                <SheetTitle className="text-secondary">Ask Copper</SheetTitle>
+                <SheetDescription className="text-secondary/70">
                   Prices, totals and stock, checked with tools.
                 </SheetDescription>
               </div>
@@ -164,16 +162,16 @@ export function AskCopper({ aiConfigured }: { aiConfigured: boolean }) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="hover:bg-primary-foreground/10 text-primary-foreground"
+                  className="hover:bg-secondary/10 hover:text-secondary text-secondary"
                 >
                   Close
                 </Button>
               </SheetClose>
             </div>
-            <div className="bg-primary-foreground/10 flex items-center justify-between gap-3 px-4 py-2 text-sm">
+            <div className="bg-secondary/10 flex items-center justify-between gap-3 px-4 py-2 text-sm">
               <div>
                 <p className="font-medium">Use tools</p>
-                <p className="text-primary-foreground/70 text-xs">
+                <p className="text-secondary/70 text-xs">
                   {useTools ? "Checks every answer" : "Model guesses alone"}
                 </p>
               </div>
