@@ -77,7 +77,8 @@ improves:
 
 Then run npm run check, npm test, npm run lint, npm run typecheck and npm run
 format, fix anything that fails without touching specs/*/tests, and tell me
-the final count. It should be 27 of 27. Commit and push.
+the final count. It should be 27 of 27. Commit and push to origin, which is
+my own copper-m2 repo.
 ```
 
 Expect this to take a while and to ask you to approve edits. When it says 27 of
@@ -170,8 +171,9 @@ database:
    readInventory() to read every row from the Supabase inventory table instead
    of the JSON file, keeping the same return type: InventoryRow[] when it
    works, null when it can't read.
-5. Delete lib/copper/data/inventory.json, run npm run check, commit, push, and
-   redeploy to Vercel.
+5. Delete lib/copper/data/inventory.json, run npm run check, commit, push to
+   origin (my own copper-m2 repo, not the course remote), and redeploy to
+   Vercel.
 ```
 
 `npm run check` must still say **27 of 27**. The tests replace the whole
