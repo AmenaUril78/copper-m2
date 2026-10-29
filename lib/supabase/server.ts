@@ -16,6 +16,11 @@ export function createStatelessClient() {
   return config
     ? createSupabaseClient(config.url, config.key, {
         auth: { persistSession: false },
+        // Stock changes, so no read is ever saved and reused: every call goes
+        // to Supabase.
+        global: {
+          fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+        },
       })
     : null;
 }
