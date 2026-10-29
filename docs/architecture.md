@@ -70,7 +70,7 @@ and stock come from code and data instead of the model's memory.
 | Piece | Where | What it does |
 |---|---|---|
 | Tools | `lib/copper/assistant/tools.ts` | `get_products`, `get_prices`, `calculate_cost`, `check_availability`, exported as `copperTools` |
-| Data | `lib/copper/catalog.ts`, `lib/copper/inventory.ts` | Prices and colors from the catalog; stock read fresh by `readInventory()` |
+| Data | `lib/copper/catalog.ts`, `lib/copper/inventory.ts` | Prices and colors from the catalog; stock read fresh from the Supabase `inventory` table by `readInventory()`, which returns `null` (so Copper says it can't check) when Supabase isn't set up or can't be read |
 
 **Data flow:** model picks a tool and writes its input → zod schema validates
 it → ordinary TypeScript reads the catalog or stock list → result goes back to
