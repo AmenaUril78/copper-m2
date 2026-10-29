@@ -138,10 +138,13 @@ Paste this:
 
 ```
 In this repo, take the part 2 files from the course remote without merging the
-branch, so nothing I wrote in part 1 is touched:
+branch, so nothing I wrote in part 1 is touched. First commit anything
+uncommitted, because the checkout below overwrites the files it names. Then:
 git fetch course
-git checkout course/module-2-part-2 -- supabase lib/supabase .mcp.json specs/module-2/instructions.md specs/module-2/spec.md package.json package-lock.json
-npm install
+git checkout course/module-2-part-2 -- supabase lib/supabase .mcp.json specs/module-2/instructions.md specs/module-2/spec.md
+npm install @supabase/supabase-js@2.117.3
+Install the package rather than taking package.json from the branch, so any
+shadcn or AI Elements components I added in part 1 keep their dependencies.
 Then show me what changed.
 ```
 
